@@ -33,13 +33,11 @@ export class AuthService {
   }
 
   async login(user: any) {
-    console.log(user);
     const data = {
       username: user.username,
       email: user.email,
       uuid: user.uuid,
     };
-    console.log(data);
     const access_token = this.jwtService.sign(data);
     return { ...data, access_token };
   }
