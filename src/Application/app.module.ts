@@ -4,13 +4,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { BooksModule } from '../Books/books.module';
-import { UserModule } from '../Users/users.module';
-
+import { RegisterModule } from '../Register/register.module';
+import { AuthModule } from '../Authentication/auth.module';
 const mongoUri = 'mongodb://localhost:27017/books_keeper';
 
 @Module({
-  imports: [UserModule, BooksModule, MongooseModule.forRoot(mongoUri)],
+  imports: [MongooseModule.forRoot(mongoUri), RegisterModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

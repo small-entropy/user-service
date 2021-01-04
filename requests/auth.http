@@ -1,0 +1,14 @@
+## REGISTER USER
+## REGISTER USER
+POST http://localhost:3000/auth/login
+content-type: application/json
+
+{
+    "username": "testuser007",
+    "password": "testuser001pwd"
+}
+
+## GET USER DATA BY JWT
+GET http://localhost:3000/auth/login
+content-type: application/json
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMDA0IiwiZW1haWwiOiJ0ZXN0dXNlcjAwMUBnbWFpbC5jb20iLCJpYXQiOjE2MDk3NTk5MTEsImV4cCI6MTYwOTc1OTk3MX0.7BzphlrRwiqjhpau7Haf-DswhuWntemZOJNX-mwpxxY"

@@ -1,0 +1,9 @@
+## REGISTER USER
+POST http://localhost:3000/register
+content-type: application/json
+
+{
+    "username": "testuser007",
+    "email": "testuser007@gmail.com",
+    "password": "testuser001pwd"
+}
