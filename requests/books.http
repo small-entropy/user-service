@@ -1,0 +1,13 @@
+GET http://localhost:3000/books
+
+
+##
+
+POST http://localhost:3000/books
+content-type: application/json
+
+{
+    "name": "Sample Name",
+    "author": "Sample Author",
+    "pageCount": 123
+}
