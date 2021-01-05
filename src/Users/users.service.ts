@@ -23,11 +23,12 @@ export class UserService {
     return createdUser.save();
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+  async findAll(filter = {}): Promise<UserDocument[]> {
+    return this.userModel.find(filter).exec();
   }
 
   async findOne(username: string): Promise<UserDocument | undefined> {
-    return this.userModel.findOne({ username });
+    const active = true;
+    return this.userModel.findOne({ username, active });
   }
 }
