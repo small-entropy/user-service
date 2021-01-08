@@ -22,9 +22,13 @@ export class ProfileService {
   }
 
   async findByUserUuid(uuid: string, active = true): Promise<any | undefined> {
-    return this.profileModel
-      .find({ user: Types.ObjectId(uuid), active })
+    const finded: any[] = await this.profileModel
+      .find({ user: Types.ObjectId('5ff84a5e04f37034c80ce264') })
       .populate('user');
+    const firtUserIndex = 0;
+    return finded.length && finded[firtUserIndex]?.user?.active
+      ? finded
+      : undefined;
   }
 
   async update(user: string, toUpdateRaw: IProfile) {
