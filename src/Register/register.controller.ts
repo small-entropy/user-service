@@ -1,6 +1,6 @@
 import { Controller, HttpCode, Post, Body } from '@nestjs/common';
 
-import { CreateUserDTO } from '../Common/user.dto';
+import { CreateUserDTO } from '../DataTransferObjects/user.dto';
 
 import { RegisterService } from '../Register/register.service';
 import { AnswerService } from '../Answer/answer.service';

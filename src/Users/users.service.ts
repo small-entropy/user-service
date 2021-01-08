@@ -3,8 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 
-import { CreateUserDTO } from '../Common/user.dto';
-import { IUser } from '../Common/user.interface';
+import { CreateUserDTO } from '../DataTransferObjects/user.dto';
+import { IUser } from '../Interfaces/user.interface';
 import { User, UserDocument } from './user.schema';
 
 import { PasswordService } from '../Password/password.service';

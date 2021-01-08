@@ -22,7 +22,8 @@ export class ProfileController {
   @UseGuards(JwtAuthGuard)
   @Put('by_user')
   async updateUserProfile(@Param() params, @Request() req) {
-    return this.profileService.update(req.user.uuid, req.body);
+    const data = this.profileService.update(req.user.uuid, req.body);
+    return this.answerService.getSimpleAnswer(data);
   }
 
   @Get('/by_user/:uuid')
