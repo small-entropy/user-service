@@ -1,8 +1,10 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
+import { Types } from 'mongoose';
 
 import { CreateUserDTO } from '../Common/user.dto';
+import { IUser } from '../Common/user.interface';
 import { User, UserDocument } from './user.schema';
 
 import { PasswordService } from '../Password/password.service';
@@ -21,6 +23,18 @@ export class UserService {
     };
     const createdUser = new this.userModel(toCreate);
     return createdUser.save();
+  }
+
+  async update(uuid: string, toUpdateRaw: IUser): Promise<UserDocument> {
+    const blackFields: Array<string> = ['registrationDate', 'active'];
+    const notInFieldIndex = -1;
+    const toUpdate: IUser = {};
+    Object.keys(toUpdateRaw).forEach((key: string): void => {
+      if (blackFields.indexOf(key) === notInFieldIndex) {
+        toUpdate[key] = toUpdateRaw[key];
+      }
+    });
+    return this.userModel.updateOne({ _id: Types.ObjectId }, toUpdate);
   }
 
   async findAll(filter = {}): Promise<UserDocument[]> {

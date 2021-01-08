@@ -19,14 +19,13 @@ export class RegisterController {
   @Post()
   @HttpCode(201)
   async register(@Body() createUserDto: CreateUserDTO) {
-
     const user = await this.registerService.register(createUserDto);
     const profile = await this.profileService.create(user, createUserDto);
     const authUserData = await this.authService.login(user);
     const data = {
       uuid: user._id,
       username: user.username,
-      email: user.email
+      email: user.email,
     };
     const meta = {
       profile: {
@@ -35,7 +34,7 @@ export class RegisterController {
         firstName: profile.firstName,
         middleName: profile.middleName,
         lastName: profile.lastName,
-        description: profile.description
+        description: profile.description,
       },
       token: authUserData.access_token,
     };

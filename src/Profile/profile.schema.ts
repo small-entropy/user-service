@@ -7,18 +7,18 @@ export type ProfileDocument = Profile & Document;
 
 @Schema()
 export class Profile {
-    @Prop({ enum: ['male', 'female', 'other'] })
-    sex: string;
-    @Prop()
-    firstName: string;
-    @Prop()
-    middleName: string;
-    @Prop()
-    lastName: string;
-    @Prop()
-    description: string;
-    @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-    user: User;
+  @Prop({ enum: ['male', 'female', 'other'] })
+  sex: string;
+  @Prop()
+  firstName: string;
+  @Prop()
+  middleName: string;
+  @Prop()
+  lastName: string;
+  @Prop()
+  description: string;
+  @Prop({ type: Types.ObjectId, ref: User.name, required: true })
+  user: Types.ObjectId;
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

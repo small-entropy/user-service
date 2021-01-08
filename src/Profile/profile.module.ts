@@ -6,7 +6,7 @@ import { AnswerModule } from '../Answer/answer.module';
 import { Profile, ProfileSchema } from './profile.schema';
 import { ProfileController } from './profile.controller';
 import { ProfileService } from './profile.service';
-
+import { AuthModule } from '../Authentication/auth.module';
 
 @Module({
   imports: [
@@ -15,8 +15,9 @@ import { ProfileService } from './profile.service';
         name: Profile.name,
         schema: ProfileSchema,
       },
-    ]), 
+    ]),
     AnswerModule,
+    AuthModule,
   ],
   controllers:[ProfileController],
   providers: [ProfileService],
