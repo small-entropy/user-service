@@ -19,7 +19,7 @@ export class UserPropertyService {
       type: 1,
     },
   ): Promise<UserPropertyDocument[]> {
-    return await this.propertyModel
+    return this.propertyModel
       .find({ user: Types.ObjectId(uuid) })
       .select(select);
   }
