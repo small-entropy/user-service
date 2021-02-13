@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { ApiSystemModule } from '../api/ApiSystem/api_system.module';
+import { ApiRegisterModule } from '../api/ApiRegistration/api_registration.module';
 
 const mongoUri = 'mongodb://localhost:27017/gitbear';
 
@@ -12,6 +13,7 @@ const mongoUri = 'mongodb://localhost:27017/gitbear';
   imports: [
     MongooseModule.forRoot(mongoUri),
     ApiSystemModule,
+    ApiRegisterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
