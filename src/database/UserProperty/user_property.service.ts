@@ -79,12 +79,13 @@ export class UserPropertyService {
     uuid: string,
     name: string,
     value: string | number | Record<string, unknown>,
+    serviceField = true,
   ) {
     try {
       const user = Types.ObjectId(uuid);
       const type = typeof value;
       const uniqName = `${user}_${name}`;
-      const toCreate = { user, name, value, type, uniqName };
+      const toCreate = { user, name, value, type, uniqName, serviceField };
       const createdProperty = new this.propertyModel(toCreate);
       return await createdProperty.save();
     } catch (error) {
