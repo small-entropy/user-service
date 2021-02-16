@@ -17,23 +17,33 @@ export class ApiLoginController {
   @UseGuards(LocalAuthGuard)
   @Post()
   async loginByData(@Request() req) {
+    let data = null;
+    let errors = null;
+    let meta = null;
     try {
       const { user } = req;
-      const { data, meta } = await this.apiLoginService.loginByData(user);
-      return this.answerSerivce.getAnswer(data, null, meta);
+      const result = await this.apiLoginService.loginByData(user);
+      data = result.data;
+      meta = result.meta;
     } catch (error) {
-      return this.answerSerivce.getAnswer(null, [error], null);
+      errors = [error];
     }
+    return this.answerSerivce.getAnswer(data, meta, errors);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
   async loginByToken(@Request() req) {
+    let data = null;
+    let errors = null;
+    let meta = null;
     try {
-      const { data, meta } = await this.apiLoginService.loginByToken(req);
-      return this.answerSerivce.getAnswer(data, null, meta);
+      const result = await this.apiLoginService.loginByToken(req);
+      data = result.data;
+      meta = result.meta;
     } catch (error) {
-      return this.answerSerivce.getAnswer(null, [error], null);
+      errors = [error];
     }
+    return this.answerSerivce.getAnswer(data, errors, meta);
   }
 }

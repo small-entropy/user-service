@@ -19,23 +19,20 @@ export class RegisterController {
   @Post()
   @HttpCode(SUCESS_CODES.CREATED)
   async register(@Body() createUserDto: CreateUserDTO) {
+    let data = null;
+    let errors = null;
+    let meta = null;
     try {
       const { user, profile } = await this.registerService.register(
         createUserDto,
       );
-      const authUserData = await this.authService.login(user);
-      const data = {
-        uuid: user._id,
-        username: user.username,
-        email: user.email,
-      };
-      const meta = {
-        profile,
-        token: authUserData.access_token,
-      };
-      return this.answerService.getAnswer(data, null, meta);
+      const result = await this.authService.login(user);
+      const { _id, username, email } = user;
+      data = { uuid: _id, username, email };
+      meta = { profile, token: result.access_token };
     } catch (error) {
-      return this.answerService.getAnswer(null, [error], null);
+      errors = [error];
     }
+    return this.answerService.getAnswer(data, errors, meta);
   }
 }
