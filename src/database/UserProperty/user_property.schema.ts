@@ -11,15 +11,19 @@ export type UserPropertyDocument = UserProperty & Document;
 export class UserProperty {
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   user: Types.ObjectId;
+
   @IsNotEmpty()
   @Prop({ required: true })
   name: string;
+  
   @IsNotEmpty()
   @Prop({ required: true, type: mongoose.Schema.Types.Mixed })
   value: mongoose.Schema.Types.Mixed;
+  
   @Prop()
   @IsNotEmpty()
   type: string;
+
   @Prop({ required: true, unique: true, index: true })
   @IsNotEmpty()
   uniqName: string;
