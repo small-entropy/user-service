@@ -11,6 +11,10 @@ export class RegisterService {
     private profileService: ProfileService,
   ) {}
 
+  /**
+   * Method for register user
+   * @param {CreateUserDTO} createUserDto record for create user data
+   */
   async register(createUserDto: CreateUserDTO) {
     try {
       const user = await this.userService.create(createUserDto);

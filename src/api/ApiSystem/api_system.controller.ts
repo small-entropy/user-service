@@ -7,11 +7,19 @@ export class ApiSystemController {
   constructor(
     private apiSystemService: ApiSystemService,
     private answerService: AnswerService,
-  ) { }
+  ) {}
 
   @Get('health')
   async getHealth() {
-    const data = this.apiSystemService.getHealt()
-    return await this.answerService.getAnswer(data, null, null);
+    let data = null;
+    let errors = null;
+    let meta = null;
+    try {
+      data = this.apiSystemService.getHealt();
+      meta = {};
+    } catch (error) {
+      errors = [error];
+    }
+    return await this.answerService.getAnswer(data, errors, meta);
   }
 }

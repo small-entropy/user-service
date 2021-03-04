@@ -9,6 +9,10 @@ export class ApiLoginService {
     private profileService: ProfileService,
   ) {}
 
+  /**
+   * Method for authentication user by request data
+   * @param {Record<string, unknown>} user user object from request
+   */
   async loginByData(user) {
     try {
       const rawData = await this.authService.login(user);
@@ -22,6 +26,10 @@ export class ApiLoginService {
     }
   }
 
+  /**
+   * Method for authentication from headers data
+   * @param {Record<string, unknown>} req request record
+   */
   async loginByToken(req) {
     try {
       const data = req.user;
