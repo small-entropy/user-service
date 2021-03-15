@@ -1,7 +1,9 @@
 import { Request, Controller, Get, UseGuards, Param } from '@nestjs/common';
 
 import { ApiProfileService } from './api_profile.service';
-import { AnswerService } from '../../utils/Answer/answer.service';;
+import { AnswerService } from '../../utils/Answer/answer.service';
+
+import { JwtAuthGuard } from '../../utils/Authentication/jwt-auth.guard';
 
 @Controller('profile')
 export class ApiProfileController {
@@ -10,6 +12,7 @@ export class ApiProfileController {
     private answerService: AnswerService,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get(':uuid')
   async getUserProfile(@Request() req, @Param() param) {
     let data = null;
