@@ -13,7 +13,7 @@ import { PasswordService } from '../../utils/Password/password.service';
 export class UserService {
   constructor(
     private passwordService: PasswordService,
-    @InjectModel(User.name) private userModel: Model<UserDocument>
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
   /**
@@ -22,10 +22,10 @@ export class UserService {
    */
   async create(createUserDto: CreateUserDTO) {
     try {
-      const toCreate = {
-        ...createUserDto,
-        password: this.passwordService.getPasswordHash(createUserDto.password)
-      };
+      const password: string = this.passwordService.getPasswordHash(
+        createUserDto.password,
+      );
+      const toCreate = { ...createUserDto, password };
 
       const createdUser = new this.userModel(toCreate);
       return await createdUser.save();
@@ -50,7 +50,11 @@ export class UserService {
           toUpdate[key] = toUpdateRaw[key];
         }
       });
-      return await this.userModel.updateOne({ _id: Types.ObjectId }, toUpdate);
+      return await this.userModel.updateOne({
+          _id: Types.ObjectId(uuid),
+        },
+        toUpdate,
+      );
     } catch (error) {
       throw error;
     }
@@ -71,11 +75,27 @@ export class UserService {
   /**
    * Method for get user document by username
    * @param {string} username username for find
+   * @param {boolean} active field for searching only active user
    */
-  async findOne(username: string) {
+  async findOneByUsername(username: string, active = true) {
     try {
-      const active = true;
       return await this.userModel.findOne({ username, active });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Methof for get user by UUID
+   * @param {string}  uuid   searching user UUID
+   * @param {boolean} active field for searching only active user
+   */
+  async findOneByUuid(uuid: string, active = true) {
+    try {
+      return await this.userModel.findOne({
+        _id: Types.ObjectId(uuid),
+        active,
+      });
     } catch (error) {
       throw error;
     }
